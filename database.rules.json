@@ -1,0 +1,19 @@
+{
+  "rules": {
+    "comments": {
+      ".read": true,
+      "$id": {
+        ".write": "!data.exists() && newData.exists()",
+        ".validate": "newData.hasChildren(['t','ts'])",
+        "t": { ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 500" },
+        "ts": { ".validate": "newData.val() === now" },
+        "a": { ".validate": "newData.isString() && newData.val().length <= 60" },
+        "$other": { ".validate": false }
+      }
+    },
+    "visits": {
+      ".read": true,
+      ".write": "newData.isNumber() && ((!data.exists() && newData.val() === 1) || newData.val() === data.val() + 1)"
+    }
+  }
+}
